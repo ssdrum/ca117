@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# https://www.cs.yale.edu/homes/aspnes/pinewiki/DepthFirstSearch.html for info
+import sys
 
 class Graph(object):
 
@@ -51,7 +51,21 @@ class DFSPaths(object):
 
 def main():
     V = int(sys.stdin.readline().rstrip())
-    print(V)
+    g = Graph(V)
+
+    for line in sys.stdin:
+        v, w = line.split()
+        g.addEdge(int(v), int(w))
+
+    islands = []
+    for i in range(V):
+        dfs = DFSPaths(g, i)
+        visited_list = dfs.visited
+
+        if visited_list not in islands:
+            islands.append(visited_list)
+
+    print(len(islands))
 
 
 if __name__ == "__main__":
